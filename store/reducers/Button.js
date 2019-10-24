@@ -17,6 +17,11 @@ export default (state = initialState, action) => {
       return {
         ...action.buttons
       }
+    case 'UPDATE_APART':
+      return {
+        ...state,
+        ...action.buttons
+      }
     default:
       return state
   }

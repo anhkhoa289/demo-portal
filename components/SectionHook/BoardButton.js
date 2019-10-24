@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Grid, Button, ButtonGroup, Divider, Typography, makeStyles, colors } from '@material-ui/core'
+import { Grid, Button, ButtonGroup, Divider, Typography, Slider, makeStyles, colors } from '@material-ui/core'
 import store from '../../store'
 
 
@@ -63,19 +63,32 @@ const TrinhConsole = () => {
   const admin = () => store.dispatch({ type: 'UPDATE_ROLE', buttons: adminButtons })
   const user = () => store.dispatch({ type: 'UPDATE_ROLE', buttons: userButtons })
   const children = () => store.dispatch({ type: 'UPDATE_ROLE', buttons: childrenButtons })
+  const gasTraking = (event, value) => {
+    if (value) {
+      store.dispatch({ type: 'UPDATE_APART', buttons: { 'out-of-gas': false } })
+    } else {
+      store.dispatch({ type: 'UPDATE_APART', buttons: { 'out-of-gas': true } })
+    }
+  }
   return (
     <Grid container>
       Trình's console:
-      <Grid container wrap='wrap'>
-        <ButtonGroup
-              color="secondary"
-              size="large"
-              aria-label="large outlined secondary button group"
-            >
-          <Button onClick={admin}>Admin</Button>
-          <Button onClick={user}>User</Button>
-          <Button onClick={children}>Children</Button>
-        </ButtonGroup>
+      <Grid container wrap='wrap' alignItems='center'>
+        <Grid item md={4}>
+          <ButtonGroup
+            color="secondary"
+            size="large"
+            aria-label="large outlined secondary button group"
+          >
+            <Button onClick={admin}>Admin</Button>
+            <Button onClick={user}>User</Button>
+            <Button onClick={children}>Children</Button>
+          </ButtonGroup>
+        </Grid>
+        <Grid item md={4}>
+          Gas status: 
+          <Slider defaultValue={75} onChange={gasTraking} />
+        </Grid>
       </Grid>
     </Grid>
   )
