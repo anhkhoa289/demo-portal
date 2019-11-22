@@ -23,6 +23,7 @@ const pageMap = [
   { path: '/', name: 'Home' },
   { path: '/hoc', name: 'Hoc' },
   { path: '/hook', name: 'Hook' },
+  { path: '/rsa', name: 'Rsa' },
 ]
 
 const Header = () => {
