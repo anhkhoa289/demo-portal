@@ -10,12 +10,12 @@ import {
   CheckCircle as CheckCircleIcon
 } from '@material-ui/icons';
 import PageExample from '../MainLayout/PageExample'
-import elliptic from 'elliptic'
-import sha3 from 'crypto-js/sha3'
+import common from '../common'
+import { verify } from '../../logic/rsa'
 
 
-const VerifyMessage = ({ classes }) => {
-  const ec = new elliptic.ec('secp256k1')
+const VerifyMessage = () => {
+  const classes = common()
 
   const [errors, setErrors] = useState({})
   const [result, setResult] = useState('')
@@ -42,13 +42,11 @@ const VerifyMessage = ({ classes }) => {
     setErrors(errors)
     return errors
   }
-  const verify = (e, type = 0) => {
-    e.preventDefault()
+
+  const onVerify = (isPrivateKey = 0) => {
     if (!Object.values(validate()).find((error) => error)) {
-      const msgHash = sha3(message).toString()
       try {
-        const keyPair = type ? ec.keyFromPrivate(key) : ec.keyFromPublic(key, 'hex')
-        setResult(keyPair.verify(msgHash, signature) ? 'success': 'fail')
+        setResult(verify(message, signature, key, isPrivateKey) ? 'success': 'fail')
       } catch (error) {
         setResult(`Wrong signature or key or something, I don't know`)
       }
@@ -56,7 +54,6 @@ const VerifyMessage = ({ classes }) => {
   }
 
   return (
-    <form>
       <PageExample headerTitle='Verify message'>
         <Grid item sm={6}>
           <Grid container spacing={2}>
@@ -93,10 +90,10 @@ const VerifyMessage = ({ classes }) => {
               />
             </Grid>
             <Grid item sm={12}>
-              <Button variant='contained' color='secondary' className={classes.button} onClick={(e) => verify(e, 0)} type='submit'>
+              <Button variant='contained' color='secondary' className={classes.buttonInGroup} onClick={() => onVerify(false)} type='submit'>
                 Verify by public key
                 </Button>
-              <Button variant='contained' color='secondary' className={classes.button} onClick={(e) => verify(e, 1)} type='submit'>
+              <Button variant='contained' color='secondary' className={classes.buttonInGroup} onClick={() => onVerify(true)} type='submit'>
                 Verify by private key
                 </Button>
             </Grid>
@@ -112,7 +109,7 @@ const VerifyMessage = ({ classes }) => {
             direction='column'
           >
             <Typography variant='body1'>
-              {result === 'success' ? <CheckCircleIcon className={classes.icon} /> : <ErrorIcon className={classes.icon} />}
+              {result === 'success' ? <CheckCircleIcon className={classes.lagreIcon} /> : <ErrorIcon className={classes.lagreIcon} />}
             </Typography>
             <Typography variant='body1'>
               Result: {result}
@@ -120,7 +117,6 @@ const VerifyMessage = ({ classes }) => {
           </Grid>
         </Grid>
       </PageExample>
-    </form>
   )
 }
 

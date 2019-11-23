@@ -7,7 +7,15 @@ const useStyles = makeStyles({
   group: tw`mb-8`,
   hashTag: {
     color: '#e91e63'
-  }
+  },
+
+  // button
+  buttonInGroup: tw`mr-2`,
+
+  // icon
+  lagreIcon: {
+    fontSize: '6rem'
+  },
 })
 
 export default useStyles

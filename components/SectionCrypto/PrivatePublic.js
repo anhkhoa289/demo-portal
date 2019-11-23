@@ -5,18 +5,19 @@ import {
   TextField
 } from '@material-ui/core';
 import PageExample from '../MainLayout/PageExample'
+import common from '../common'
 
 
 const PrivatePublic = ({
-  classes,
   errors,
   privateKey,
   onChangePrivate,
   publicKey,
   compressPublicKey,
-  generateKey,
-  generateKeyFromPrivateKey
+  onGenerateKey,
+  onGenerateKeyFromPrivateKey
 }) => {
+  const classes = common()
 
   return (
     <PageExample headerTitle='Private public key pair'>
@@ -52,10 +53,10 @@ const PrivatePublic = ({
           />
         </Grid>
         <Grid item sm={12}>
-          <Button variant="contained" color="secondary" className={classes.button} onClick={generateKey}>
+          <Button variant="contained" color="secondary" className={classes.buttonInGroup} onClick={onGenerateKey}>
             Generate key
             </Button>
-          <Button variant="contained" color="secondary" className={classes.button} onClick={generateKeyFromPrivateKey}>
+          <Button variant="contained" color="secondary" className={classes.buttonInGroup} onClick={onGenerateKeyFromPrivateKey}>
             Generate from current private key
             </Button>
         </Grid>
