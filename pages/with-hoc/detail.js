@@ -1,5 +1,5 @@
 import React from 'react'
-import hocWrapper from '../../components/layout/hoc'
+import hocWrapper from '../../components/FakeLayout/hoc'
 
 
 const Detail = () => {
