@@ -19,7 +19,7 @@
     "elliptic": "^6.5.1",
     "js-sha3": "^0.8.0",
     "next": "9.0.7",
-    "prismjs": "^1.17.1",
+    "prismjs": "^1.25.0",
     "react": "16.10.2",
     "react-dom": "16.10.2",
     "react-redux": "^7.1.1",
